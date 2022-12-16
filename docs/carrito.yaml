@@ -1,0 +1,142 @@
+#Chart
+components:
+  requestBodies:
+    getChart:
+      type: object
+      properties:
+        idCarrito:
+          type: string
+          description: chart unique identifier        
+      example:
+        idCarrito: 3                          
+  schemas:
+    Chart:
+      type: object
+      properties:
+        idCarrito:
+          type: string
+          description: product's unique identifier         
+      example:
+        idCarrito: 20
+paths:
+  /api/carrito/{id}/productos:
+    get:
+      summary: get chart's products
+      tags:
+        - Chart
+      parameters:
+        - in: path
+          name: id
+          description: set chart's id
+          schema:
+            type: string 
+          required: true                                       
+      responses:
+        "200":
+          description: object with chart and all of product in this object product
+          content:
+            application/json:              
+              schema: 
+                type: object
+                properties:
+                  status:     
+                  message:  
+                  obj:   
+  /api/carrito/:
+    post:
+      summary: created a chart and returns the id setted
+      tags:
+        - Chart                                         
+      responses:
+        "200":
+          description: chart's id
+          parameters:
+            - in: path
+              name: id
+              description: set chart's id
+              required: true
+          schema:
+            type: string 
+          required: true    
+          content:
+            application/json:              
+              schema: 
+                type: object
+                properties:
+                  status:     
+                  message:  
+                  obj:                                            
+  /api/carrito/{id}:
+    delete:
+      summary: deleted the chart and his products
+      tags:
+        - Chart
+      parameters:
+        - in: path
+          name: id
+          description: set chart's id
+          schema:
+            type: string 
+          required: true               
+      responses:
+        "200":
+          description: chart deleted
+          content:
+            application/json:              
+              schema: 
+                type: object
+                properties:
+                  status:     
+                  message:  
+  /api/carrito/{id}/productos/{id_prod}:
+    delete:
+      summary: deleted the chart and his products
+      tags:
+        - Chart
+      parameters:
+        - in: path
+          name: id
+          description: set chart's id
+        - in: path
+          name: id_prod
+          desciption: set product's id
+          schema:
+            type: string 
+          required: true                       
+      responses:
+        "200":
+          description: chart deleted
+          content:
+            application/json:              
+              schema: 
+                type: object
+                properties:
+                  status:     
+                  message: 
+  /api/carrito/{id}/producto:
+    post:
+      summary: insert the chart and his products if product exists
+      tags:
+        - Chart
+      parameters:
+        - in: path
+          name: id
+          description: set chart's id        
+          required: true  
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/requestBodies/getChart'   
+      responses:
+        "200":
+          description: chart deleted
+          content:
+            application/json:              
+              schema: 
+                type: object
+                properties:
+                  status:     
+                  message:   
+      

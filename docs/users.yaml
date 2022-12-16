@@ -1,0 +1,62 @@
+#User
+components:
+  requestBodies:
+    checkLogin:
+      type: object
+      properties:
+        name: 
+          type: string
+          description: nombre del usuario
+        email:
+          type: string
+          description: Email del usuario
+        password:
+          type: string
+          description: Contraseña del usuario       
+      example:
+        name: admin
+        email: admin@admin.com
+        password: admin123         
+  schemas:
+    User:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Nombre de usuario
+        email:
+          type: string
+          description: Email de logueo del usuario, campo unico
+        password:
+          type: string
+          description: Contraseña del usuario
+        isAdmin:
+          type: number
+          description: Valor entre 1 y 0 (1 = admin, 0 = usuario regular)
+      example:
+        name: admin
+        email: admin@admin
+        password: admin123
+paths:
+  /api/sessions/login:
+    post:
+      summary: Obtiene el usuario
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/requestBodies/checkLogin' 
+      responses:
+        "200":
+          description: The user is/is not Admin
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  status:     
+                  message:                
+        

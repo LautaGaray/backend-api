@@ -1,0 +1,157 @@
+#Product
+components:
+  requestBodies:
+    insertProduct:
+      type: object
+      properties:
+        idProduct:
+          type: string
+          description: product unique identifier 
+        nameProduct:
+          type: string
+          description: product's name
+        price:
+          type: number
+          description: product's price
+        qty:
+          type: number
+          description: product's quantity
+      example:
+        idProduct: "2"
+        nameProduct: "product"
+        price: 1000
+        qty: 10 
+    updateProduct:
+      type: object
+      properties:
+        nameProduct:
+          type: string
+          description: product unique identifier       
+        qty:
+          type: number
+          description: product's quantity
+        price:
+          type: number
+          description: product's price
+      example:
+          nameProduct: "new name"
+          qty: 50
+          price: 1000                           
+  schemas:
+    Product:
+      type: object
+      properties:
+        idProduct:
+          type: string
+          description: product's unique identifier
+        nameProduct:
+          type: string
+          description: product's name
+        price:
+          type: number
+          description: product's price
+        qty:
+          type: number
+          description: product's quantity 
+      example:
+        idProduct: "2"
+        nameProduct: product
+        price: 1000
+        qty: 10
+paths:
+  /api/producto/{id}:
+    delete:
+      summary: delete a product by id
+      tags:
+        - Products
+      parameters:
+        - in: path
+          name: id
+          description: set product's id
+          schema:
+            type: string 
+          required: true                                       
+      responses:
+        "200":
+          description: object with eliminated product
+          content:
+            application/json:              
+              schema: 
+                type: object
+                properties:
+                  status:     
+                  message:  
+                  obj:   
+  /api/productos/{id}:
+    get:
+      summary: get a product by id, if it is equals 0 (the id) get all products
+      tags:
+        - Products
+      parameters:
+        - in: path
+          name: id
+          description: set the product's id or input 0 for all products
+          schema:
+            type: string                                        
+      responses:
+        "200":
+          description: Array of products or product, idCarrito = 0 in obj
+          content:
+            application/json:              
+              schema: 
+                type: object
+                properties:
+                  status:     
+                  message:  
+                  obj: []                                           
+  /api/producto:
+    post:
+      summary: insert a product, if exists then will be modificated
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/requestBodies/insertProduct'           
+      responses:
+        "200":
+          description: product inserted/modificated
+          content:
+            application/json:              
+              schema: 
+                type: object
+                properties:
+                  status:     
+                  message:  
+  /api/{id}:
+    put:
+      summary: updated a exists product
+      tags:
+        - Products
+      parameters:
+        - in: path
+          name: id
+          description: set the id product
+          schema:
+            type: string 
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/requestBodies/updateProduct'           
+      responses:
+        "200":
+          description: product's obj with modifications
+          content:
+            application/json:              
+              schema: 
+                type: object
+                properties:
+                  status:     
+                  message: 
+                  obj:                    
+        
